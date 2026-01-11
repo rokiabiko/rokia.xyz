@@ -1,0 +1,32 @@
+{{ partial "header.html" . }}
+
+<h2>{{ .Title }}</h2>
+
+{{ .Content }}
+
+<main class="notes-container">
+  {{ range .Pages }}
+  <div class="notes">
+    <div class="note">
+      <div class="notes-list-title">
+        <h2>
+          <a href="{{ .Permalink }}" style="text-decoration: none"
+            >{{ .Title }}</a
+          >
+        </h2>
+      </div>
+      {{ .Content }}
+      <div class="below-note">
+        <a href="{{ .Permalink }}"> {{ .Date.Format "2006-01-02 15:04" }}</a>
+        {{ with .Params.Tags }} · {{ $tags := . }} {{ range $index, $tag :=
+        $tags }} {{ if $index }},{{ end }}
+        <a href="/tags/{{ $tag | urlize }}">{{ $tag }}</a>
+        {{ end }} {{ end }}
+      </div>
+    </div>
+    <hr />
+  </div>
+  {{ end }}
+</main>
+
+{{ partial "footer.html" . }}

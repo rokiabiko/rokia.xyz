@@ -1,0 +1,55 @@
+{{ partial "header.html" . }} {{ if not .IsHome }}
+<h2>{{ .Title | markdownify }}</h2>
+{{ end }} {{ .Content }}
+
+<main class="notes-container">
+  {{ $pages := .Pages }}
+
+  {{/* On homepage, filter to allowed sections (e.g. exclude "about" page) */}}
+  {{ if .IsHome }}
+    {{/* Add other section names here (e.g. "posts", "blog") to include them on the homepage */}}
+    {{ $allowedSections := slice "notes" }}
+    {{ $pages = where .Site.RegularPages "Section" "in" $allowedSections }}
+  {{ end }}
+
+  {{/* Calculate count for "View all" logic before slicing */}}
+  {{ $totalCount := len $pages }}
+
+  {{/* Limit to 7 items on homepage */}}
+  {{ if .IsHome }}
+    {{ $pages = first 7 $pages }}
+  {{ end }}
+
+  {{ range $pages }}
+    <div class="notes">
+      <!-- check here if there is a title -->
+      <div class="note">
+        <div class="notes-list-title">
+          <h1>
+            <a href="{{ .Permalink }}" style="text-decoration: none">{{ .Title }}</a>
+          </h1>
+        </div>
+        {{ .Content }}
+        <div class="below-note">
+          <a href="{{ .Permalink }}"> {{ .Date.Format "2006-01-02 15:04" }}</a>
+          {{ with .Params.Tags }} · 
+            {{ $tags := . }} 
+            {{ range $index, $tag := $tags }} 
+              {{ if $index }},{{ end }}
+              <a href="/tags/{{ $tag | urlize }}">{{ $tag }}</a>
+            {{ end }} 
+          {{ end }}
+        </div>
+      </div>
+      <hr class="note-divider" />
+    </div>
+  {{ end }}
+
+  {{/* Show 'View all' link if on homepage and there are more than 7 posts in the allowed sections */}}
+  {{ if and .IsHome (gt $totalCount 7) }}
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="/notes/" style="text-decoration: none; font-weight: bold;">View all notes &rarr;</a>
+    </div>
+  {{ end }}
+</main>
+{{ partial "footer.html" . }}

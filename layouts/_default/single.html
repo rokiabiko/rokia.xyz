@@ -1,0 +1,19 @@
+{{ partial "header.html" . }}
+<div class="article-meta">
+  <h1><span class="title">{{ .Title | markdownify }}</span></h1>
+  {{ if (gt .Params.date 0) }}
+  <p>
+    <span class="date">{{ .Date.Format "January 2, 2006" }}</span> ·
+    <span class="date">
+      {{ with .Params.Tags }} {{ $tags := . }} {{ range $index, $tag := $tags }}
+      {{ if $index }},{{ end }}
+      <a href="/tags/{{ $tag | urlize }}">{{ $tag }}</a>
+      {{ end }} {{ end }}
+    </span>
+  </p>
+  {{ end }}
+</div>
+
+<main>{{ .Content }}</main>
+
+{{ partial "footer.html" . }}

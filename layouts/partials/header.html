@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <title>{{ .Title }} | {{ .Site.Title }}</title> -->
+    {{ $parent := .Parent }}
+    <title>{{ if .Title }}{{ .Title }}{{ else }}{{ $parent.Title }}{{ end }} | {{ .Site.Title }}</title>
+    
+    <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💭</text></svg>">
+    <!-- <link rel="icon" type="image/svg+xml" href="/img/favicon.svg"> -->
+    <script src="{{ "js/theme.js" | relURL }}"></script>
+  </head>
+<body>
+  <nav class="navbar">
+    {{ $first := index .Site.Menus.main 0 }}
+    <div class="navbar-left">
+      <a href="{{ $first.URL }}">{{ $first.Name }}</a>
+    </div>
+    <div class="navbar-right">
+      {{ range $index, $element := .Site.Menus.main }}
+        {{ if ne $index 0 }}
+          <a href="{{ $element.URL }}">{{ $element.Name }}</a>
+        {{ end }}
+      {{ end }}
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <span id="moon-icon" class="icon">
+          {{ with resources.Get "icons/moon.svg" }}
+            {{ .Content | safeHTML }}
+          {{ end }}
+        </span>
+        <span id="sun-icon" class="icon" style="display: none;">
+          {{ with resources.Get "icons/sun.svg" }}
+            {{ .Content | safeHTML }}
+          {{ end }}
+        </span>
+      </button>
+    </div>
+  </nav>

@@ -1,0 +1,64 @@
+{{ partial "header.html" . }}
+<!-- Include the site's header partial -->
+
+<br />
+<br />
+<br />
+
+<main>
+  <ul class="list-items">
+    {{ if .IsHome }}
+    <!-- Check if the current page is the homepage -->
+    <!-- On the homepage -->
+    <hr />
+    <!-- Horizontal rule to separate content -->
+    <h2>Recent Notes</h2>
+    <!-- Title for recent notes section -->
+    {{ $pages := .Site.RegularPages }}
+    <!-- Get all regular pages in the site -->
+    {{ $notes := where $pages "Section" "notes" }}
+    <!-- Filter pages that belong to the 'notes' section -->
+    {{ if gt (len $notes) 0 }}
+    <!-- Check if there are any notes -->
+    {{ $latestNote := first 3 (sort $notes ".Date" "desc") }}
+    <!-- Sort the notes by date in descending order and take the first 3 -->
+    {{ with $latestNote }}
+    <!-- Start a block with the sorted notes -->
+    {{ range . }}
+    <!-- Loop through the latest notes -->
+    <li class="list-item">
+      <a href="{{ .RelPermalink }}" class="list-link">
+        <span class="list-title">{{ .Title }}</span>
+        <span class="list-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+      </a>
+    </li>
+    <!-- Add space between each note -->
+    {{ end }}
+    <!-- End the loop over the latest notes -->
+    {{ end }}
+    <!-- End the 'with' block for $latestNote -->
+    {{ end }}
+    <!-- End check for notes existence -->
+    {{ else }}
+    <!-- On any other type of page -->
+    {{ $pages := .Pages }}
+    <!-- Get the pages associated with the current page -->
+    {{ range (where $pages "Section" "!=" "") }}
+    <!-- Loop through pages that have a non-empty section -->
+    <li class="list-item">
+      <a href="{{ .RelPermalink }}" class="list-link">
+        <span class="list-title">{{ .Title }}</span>
+        <span class="list-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+      </a>
+    </li>
+    {{ end }}
+    <!-- End loop for non-sectioned pages -->
+    {{ end }}
+    <!-- End check for other page types -->
+  </ul>
+</main>
+
+
+
+{{ partial "footer.html" . }}
+<!-- Include the site's footer partial -->

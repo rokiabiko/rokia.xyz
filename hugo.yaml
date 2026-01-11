@@ -1,0 +1,62 @@
+baseurl: "https://rokia.xyz/"
+languageCode: "en-us"
+title: "Rokia's Blog"
+footnotereturnlinkcontents: "↩"
+
+permalinks:
+  notes: "/:slug/"
+
+params:
+  author:
+    name: Rokia Biko
+  timezone: "America/New_York"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+  section:
+    - HTML
+    - RSS
+
+taxonomies:
+  tag: "tags"
+
+feeds:
+  rss:
+    disabled: false
+
+menu:
+  main:
+    - name: Home
+      url: "/"
+      weight: 1
+    - name: Archive
+      url: "/notes/"
+      weight: 2
+    # - name: Tags
+    #   url: "/tags/"
+    #   weight: 4
+    # - name: RSS
+    #   url: "index.xml"
+
+# footer: "Powered by [Hugo](https://gohugo.io/)"
+
+markup:
+  highlight:
+    codeFences: false
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - \[
+              - \]
+            - - $$
+              - $$
+          inline:
+            - - \(
+              - \)

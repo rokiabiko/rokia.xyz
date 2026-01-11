@@ -1,0 +1,27 @@
+### Hugo ###
+# Generated files by hugo
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+hugo_stats.json
+
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# Temporary lock file while building
+/.hugo_build.lock
+
+# added by the node modules
+/node_modules/
+package.json
+package-lock.json
+.prettierrc
+.prettierignore
+
+#obsidian
+.obsidian
+.DS_Store
+.claude
+
