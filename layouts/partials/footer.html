@@ -1,16 +1,16 @@
   <footer>
-    <div class="footer-content">
+    <div class="footer__content">
       <div>
         <p>Made with 
         {{ with resources.Get "icons/heart.svg" }}
-          <span class="icon footer-heart">
+          <span class="icon footer__heart">
             {{ .Content | safeHTML }}
           </span>
         in Brooklyn, NY{{ end }}
         </p>
       </div>
       <div>
-        <a href="{{ "index.xml" | relURL }}" class="rss-link">RSS</a>
+        <a href="{{ "index.xml" | relURL }}" class="footer__rss-link">RSS</a>
       </div>
     </div>
   </footer>

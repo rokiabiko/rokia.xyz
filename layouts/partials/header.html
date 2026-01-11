@@ -15,10 +15,10 @@
 <body>
   <nav class="navbar">
     {{ $first := index .Site.Menus.main 0 }}
-    <div class="navbar-left">
+    <div class="navbar__left">
       <a href="{{ $first.URL }}">{{ $first.Name }}</a>
     </div>
-    <div class="navbar-right">
+    <div class="navbar__right">
       {{ range $index, $element := .Site.Menus.main }}
         {{ if ne $index 0 }}
           <a href="{{ $element.URL }}">{{ $element.Name }}</a>

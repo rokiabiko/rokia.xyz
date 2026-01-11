@@ -1,45 +1,227 @@
 /* Import custom fonts */
 @import url("/css/fonts.css");
 
-/* https://stephango.com/flexoki */
+/* ==========================================================================
+   CONFIGURATION: Design Tokens (Flexoki Color Scheme)
+   https://stephango.com/flexoki
+   ========================================================================== */
+
 :root {
-  --bg00: #fffcf0;
-  --bg10: #f2f0e5;
-  --cdbd: #e6e4d9;
-  --tc-max: #100f0f;
-  --tc-mid: #6f6e69;
-  --tc-min: #b7b5ac;
-  --lu: #b7b5ac;
-  --lh: #da702c;
+  /* Light Theme Colors */
+  --color-bg-primary: #fffcf0;
+  --color-bg-secondary: #f2f0e5;
+  --color-border-subtle: #e6e4d9;
+  --color-text-primary: #100f0f;
+  --color-text-secondary: #6f6e69;
+  --color-text-muted: #b7b5ac;
+  --color-link-underline: #b7b5ac;
+  --color-link-hover: #da702c;
+
+  /* Typographic scale and fonts */
+  --font-family-sans: Whitney, system-ui, -apple-system, sans-serif;
+  --font-family-heading: "IBM Plex Sans", Whitney, serif;
+  --font-family-mono: "CommitMono", monospace;
+  
+  --font-size-base: 1.125rem;
+  --font-size-mobile: 1rem;
+  --line-height-base: 1.4em;
 }
 
-/* Dark theme variables */
+/* Dark Theme Overrides */
 html[data-theme="dark"] {
-  --bg00: #100f0f;
-  --bg10: #1c1b1a;
-  --cdbd: #282726;
-  --tc-max: #fffcf0;
-  --tc-mid: #e6e4d9;
-  --tc-min: #cecdc3;
-  --lu: #575653;
-  --lh: #da702c;
+  --color-bg-primary: #100f0f;
+  --color-bg-secondary: #1c1b1a;
+  --color-border-subtle: #282726;
+  --color-text-primary: #fffcf0;
+  --color-text-secondary: #e6e4d9;
+  --color-text-muted: #cecdc3;
+  --color-link-underline: #575653;
+  --color-link-hover: #da702c;
 }
 
-/* For browsers that don't support JavaScript or the theme toggle */
+/* OS Preference Detection */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg00: #100f0f;
-    --bg10: #1c1b1a;
-    --cdbd: #282726;
-    --tc-max: #fffcf0;
-    --tc-mid: #e6e4d9;
-    --tc-min: #cecdc3;
-    --lu: #575653;
-    --lh: #da702c;
+    --color-bg-primary: #100f0f;
+    --color-bg-secondary: #1c1b1a;
+    --color-border-subtle: #282726;
+    --color-text-primary: #fffcf0;
+    --color-text-secondary: #e6e4d9;
+    --color-text-muted: #cecdc3;
+    --color-link-underline: #575653;
+    --color-link-hover: #da702c;
   }
 }
 
-/* Theme toggle button styles */
+/* ==========================================================================
+   BASE: Reset and Global Styles
+   ========================================================================== */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  margin: auto;
+  max-width: 55ch;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 45rem) {
+  body {
+    font-size: var(--font-size-mobile);
+    max-width: 90%;
+    padding: 0 1rem;
+  }
+}
+
+main {
+  flex: 1;
+}
+
+/* Typography */
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-family-heading);
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2, h3, h4, h5 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Links */
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-link-underline);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: inherit;
+}
+
+/* Media Elements */
+
+img,
+iframe,
+video {
+  width: 100%;
+  height: auto;
+}
+
+figure {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+figcaption {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: 85%;
+  color: var(--color-text-secondary);
+}
+
+/* Data Tables */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  font-weight: bold;
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-text-muted);
+  padding: 6px;
+  text-align: left;
+}
+
+tbody td {
+  border-bottom: 1px solid var(--color-bg-secondary);
+  padding: 6px;
+}
+
+tbody tr:hover {
+  background-color: var(--color-bg-secondary);
+}
+
+/* Blockquotes and Marks */
+
+blockquote {
+  margin: 0;
+  padding: 0 1.5rem;
+  border-left: 2px solid var(--color-text-muted);
+}
+
+mark {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  margin: 0;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   COMPONENTS: Reusable UI Elements
+   ========================================================================== */
+
+/* Navbar Component */
+
+.navbar {
+  font-family: var(--font-family-heading);
+  font-size: 1.313rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.navbar__left,
+.navbar__right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__right a {
+  margin-left: 1rem;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+/* Theme Toggle Component */
+
 .theme-toggle {
   background: none;
   border: none;
@@ -51,12 +233,12 @@ html[data-theme="dark"] {
   justify-content: center;
   border-radius: 3px;
   transition: background-color 0.2s;
-  color: var(--tc-mid);
+  color: var(--color-text-secondary);
 }
 
 .theme-toggle:hover {
-  background-color: var(--bg10);
-  color: var(--tc-max);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
 }
 
 .theme-toggle .icon svg {
@@ -65,126 +247,36 @@ html[data-theme="dark"] {
   stroke-width: 1.5px;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: Whitney, system-ui, sans-serif;
+/* Icon Component */
+
+.icon svg {
+  height: 1em;
+  width: 1em;
+  vertical-align: middle;
+  fill: currentColor;
 }
 
-body {
-  font-size: 1.125rem;
-  line-height: 1.4em;
-  margin: auto;
-  max-width: 55ch;
-  color: var(--tc-max);
-  background-color: var(--bg00);
-  display: flex;
-  flex-direction: column;
-}
+/* Code and Keyboard Input */
 
-/* Responsive design for mobile devices */
-@media (max-width: 45rem) {
-  body {
-    font-size: 1rem;
-    max-width: 90%;
-    padding: 0 1rem;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    text-align: center;
-  }
-}
-
-main {
-  flex: 1;
-}
-
-p {
-  margin-top: 0.5rem; /* Adjust as needed */
-  margin-bottom: 0.5rem; /* Adjust as needed */
-}
-
-h1 {
-  font-family: "IBM Plex Sans", Whitney, serif;
-  font-size: 2rem;
-  font-weight: normal;
-}
-
-h2,
-h3,
-h4,
-h5 {
-  font-family: "IBM Plex Sans", Whitney, serif;
-  font-size: 1.5rem;
-  font-weight: normal;
-}
-
-.navbar {
-  font-family: "IBM Plex Sans", Whitney, system-ui, serif;
-  font-size: 1.313rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  color: var(--tc-max);
-  border-bottom: 1px solid var(--tc-min);
-  margin-bottom: 1rem;
-}
-
-/* Make sure navbar items are aligned horizontally */
-.navbar-left,
-.navbar-right {
-  display: flex;
-  align-items: center;
-}
-
-/* Add spacing between the right-side items */
-.navbar-right a {
-  margin-left: 1rem;
-}
-
-/* Style links */
-.navbar a {
-  text-decoration: none;
-}
-
-/* links */
-a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-color: var(--lu);
-}
-
-a:hover {
-  color: var(--lh);
-  text-decoration-color: inherit;
-  /* background-color: var(--bg10); */
-}
-
-/* code */
 pre {
-  background-color: var(--bg10);
+  background-color: var(--color-bg-secondary);
   padding: 10px;
   overflow: auto;
   border-radius: 5px;
-  border: solid 1px var(--cdbd);
+  border: solid 1px var(--color-border-subtle);
   line-height: 1.3;
-  font-family: "CommitMono", monospace;
+  font-family: var(--font-family-mono);
 }
 
 code,
 kbd {
-  background-color: var(--bg10);
+  background-color: var(--color-bg-secondary);
   padding: 0.1em 0.2em;
   margin: 0;
   border-radius: 2px;
   font-size: 80%;
-  border: solid 1px var(--cdbd);
-  font-family: "CommitMono", monospace;
+  border: solid 1px var(--color-border-subtle);
+  font-family: var(--font-family-mono);
 }
 
 pre code {
@@ -192,92 +284,11 @@ pre code {
   background: none;
 }
 
-/* tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+/* ==========================================================================
+   LAYOUT: Page-Specific Sections
+   ========================================================================== */
 
-thead th {
-  font-weight: bold;
-  background-color: var(--bg10);
-  border-bottom: 1px solid var(--tc-min);
-  padding: 6px;
-  text-align: left;
-}
-
-tbody td {
-  border-bottom: 1px solid var(--bg10);
-  padding: 6px;
-}
-
-tbody tr:hover {
-  background-color: var(--bg10);
-}
-
-/* misc elements */
-blockquote {
-  margin: 0;
-  /* border-radius: 1px; */
-  padding: 0 1.5rem;
-  border-left: 2px solid var(--tc-min);
-  /* border-left-width: 5px; */
-  /* background-color: #fafafa;  */
-}
-
-mark {
-  color: var(--tc-max);
-  background-color: var(--bg10);
-  margin: 0;
-  border-radius: 2px;
-}
-
-img,
-iframe,
-video {
-  width: 100%;
-  height: auto;
-}
-
-figure {
-  width: 100%; /* Make the figure element take up 100% of its container's width */
-  margin: 0; /* Optional: Remove default margins */
-  padding: 0; /* Optional: Remove default padding */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-}
-
-figure img {
-  width: 100%; /* Make the image inside the figure stretch to 100% of the figure's width */
-  height: auto; /* Maintain the aspect ratio of the image */
-  display: block; /* Remove bottom space/gap below the image */
-  /* border: 3px solid black; */
-}
-
-figcaption {
-  text-align: center; /* Center the caption text, optional */
-  margin-top: 0.5rem; /* Optional: Add some space above the caption */
-  font-size: 85%;
-  color: var(--tc-mid);
-}
-
-/****************************** 
-  HUGO SPECIFIC STYLING
-  *******************************/
-/* .post-listing li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-} */
-
-/* Scale SVG icons to text size */
-.icon svg {
-  height: 1em;
-  width: 1em;
-  vertical-align: middle; /*middle*/
-  fill: currentColor;
-}
-
-/* FORMATING FOR THE LISTS EVERYWHERE */
+/* List Items (Post/Notes Listings) */
 
 .list-items {
   list-style-type: none;
@@ -286,77 +297,96 @@ figcaption {
   padding-top: 2rem;
 }
 
-.list-link {
+.list-items__link {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  /* background-color: orange; */
+  text-decoration: none;
 }
 
-.list-link:hover {
-  background-color: var(--bg10);
+.list-items__link:hover {
+  background-color: var(--color-bg-secondary);
 }
 
-.date {
+.list-items__date {
   font-size: 90%;
-  color: var(--tc-mid);
-  margin-top: 0;
-  margin-bottom: 1rem;
+  color: var(--color-text-secondary);
 }
+
+/* Article Metadata */
 
 .article-meta h1 {
   margin-top: 1.75rem;
   margin-bottom: 0;
 }
 
-/* NOTES SECTION */
+.article-meta__date {
+  font-size: 90%;
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Notes Section Styles */
+
 .note {
   margin-top: 2rem;
 }
 
-.below-note {
-  color: var(--tc-mid);
+.note__footer {
+  color: var(--color-text-secondary);
   font-size: 80%;
   margin: 1rem 0 2rem 0;
 }
 
-.note-divider {
+.note__divider {
   border: none;
-  border-top: 3px dotted var(--tc-min);
+  border-top: 3px dotted var(--color-text-muted);
   margin: 2rem 0;
 }
 
-.notes:last-of-type .note-divider {
+.notes:last-of-type .note__divider {
   display: none;
 }
 
-/* FOOTER */
+/* Footer Component */
+
 footer {
   padding-bottom: 1rem;
 }
 
-.footer-content {
+.footer__content {
   display: flex;
   justify-content: space-between;
   padding: 1rem 0;
-  border-top: 1px solid var(--tc-min);
+  border-top: 1px solid var(--color-text-muted);
   margin-top: 1rem;
   font-size: 1rem;
-  color: var(--tc-max);
+  color: var(--color-text-primary);
 }
 
-.rss-link {
+@media (max-width: 45rem) {
+  .footer__content {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+.footer__rss-link {
   text-decoration: none;
 }
 
-.footer-heart svg {
+.footer__heart svg {
   vertical-align: middle;
   margin-left: 0.1rem;
   fill: currentColor;
 }
 
-/* 404 PAGE */
+/* Error (404) Page */
+
 .error-page {
   text-align: center;
   padding-top: 4rem;

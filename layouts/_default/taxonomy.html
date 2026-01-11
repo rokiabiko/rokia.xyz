@@ -16,7 +16,7 @@
         </h2>
       </div>
       {{ .Content }}
-      <div class="below-note">
+      <div class="note__footer">
         <a href="{{ .Permalink }}"> {{ .Date.Format "2006-01-02 15:04" }}</a>
         {{ with .Params.Tags }} · {{ $tags := . }} {{ range $index, $tag :=
         $tags }} {{ if $index }},{{ end }}
@@ -24,7 +24,7 @@
         {{ end }} {{ end }}
       </div>
     </div>
-    <hr />
+    <hr class="note__divider" />
   </div>
   {{ end }}
 </main>
